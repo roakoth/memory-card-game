@@ -3,8 +3,19 @@ let matchedPairs = 0;
 let cardOne, cardTwo;
 let disableDeck = false;
 
-function flipCard() {
-    console.log('flipCard was executed');
+function flipCard(evt) {
+    // console.log('flipCard was executed');
+    // console.log(evt);
+    const clickedCard = evt.target;
+    if (cardOne !== clickedCard && !disableDeck) { // make sure that the current variable cardOne is not the same value as the clickedCard, AND that the deck is NOT disabled
+        clickedCard.classList.add("flip"); // add the 'flip' class to the classes currently assigned to the clickedCard
+    }
+    if(!cardOne) { // if there is not yet a value assigned to the cardOne variable...
+        return cardOne = clickedCard; // set the cardOne value as the clickedCard and end this function.
+    }
+    // everything below will execute if the condition above was not met (if cardOne already had a value when flipCard() was called)
+cardTwo = clickedCard; // set the cardTwo value as the clickedCard
+disableDeck = true; // set this to true for the next time this flipCard function is called, when the top level condition is evaluated
   }
 
   function shuffleCards() {
