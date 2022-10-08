@@ -2,6 +2,9 @@ const cards = document.querySelectorAll(".card");
 let matchedPairs = 0;
 let cardOne, cardTwo;
 let disableDeck = false;
+const gameOverScreen = document.getElementById('game-over-wrapper');
+const playAgainButton = document.getElementById('play-again-button')
+
 
 function flipCard(evt) {
     // console.log('flipCard was executed');
@@ -48,10 +51,7 @@ function matchCards(img1, img2) {
     if (img1 === img2) { // this code will run if the card images match
         matchedPairs++; // if the card images match, we can increment the global `matchedPairs` variable by 1 match
    
-        if (matchedPairs == 8) { // if your number of matches is 8, you've made all the matches! Game Won!
-            console.log('YOU WIN!');
-            return; // for now, lets call this game over, end this function and do nothing else.
-          }
+       gameOver();
           // everything below will execute if the game has not yet been won...
           cardOne.removeEventListener("click", flipCard); // remove the eventlistener so that this matched card cannot be flipped anymore
           cardTwo.removeEventListener("click", flipCard); // remove the eventlistener so that this matched card cannot be flipped anymore
@@ -60,12 +60,36 @@ function matchCards(img1, img2) {
           disableDeck = false;
           return;  // end function
     }
- // these cards didn't match, un-flip them...
- cardOne.classList.remove("flip");
- cardTwo.classList.remove("flip");
- cardOne = cardTwo = ""; // reset the cardOne & cardTwo variables to empty string
- disableDeck = false;
- return; 
+   // these cards didn't match so we'll un-flip them, but let the user see them both before they disappear
+   setTimeout(() => {
+    cardOne.classList.add("shake");
+    cardTwo.classList.add("shake");
+  }, 400);
    
+   setTimeout(() => {
+    cardOne.classList.remove("shake","flip");
+    cardTwo.classList.remove("shake","flip");
+    cardOne = cardTwo = ""; // reset the cardOne & cardTwo variables to empty string
+    disableDeck = false;
+    return;
+  }, 1200);
+   
+}
 
+function gameOver (){
+  if (matchedPairs == 8) { // if your number of matches is 8, you've made all the matches! Game Won!
+    console.log('YOU WIN!');
+gameOverScreen.style.opacity = "1";
+    return; // for now, lets call this game over, end this function and do nothing else.
+  } 
+  else {
+    // restart the game
+    playAgainButton.addEventListener("click", restartGame);
+  }
+}
+
+
+function restartGame (){
+ shuffleCards();
+gameOverScreen.style.opacity = '0';
 }
