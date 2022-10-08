@@ -3,7 +3,9 @@ let matchedPairs = 0;
 let cardOne, cardTwo;
 let disableDeck = false;
 const gameOverScreen = document.getElementById('game-over-wrapper');
-const playAgainButton = document.getElementById('play-again-button')
+const playAgainButton = document.getElementById('play-again-button');
+const missedMatch = document.getElementById('missed');
+const matchedCard = document.getElementById('matched');
 
 
 function flipCard(evt) {
@@ -19,6 +21,7 @@ function flipCard(evt) {
     // everything below will execute if the condition above was not met (if cardOne already had a value when flipCard() was called)
 cardTwo = clickedCard; // set the cardTwo value as the clickedCard
 disableDeck = true; // set this to true for the next time this flipCard function is called, when the top level condition is evaluated
+
 
 // if the function has come this far, it means we have set values for both cardOne and cardTwo.
 // each of the cardOne and cardTwo variables currently represent a whole HTML element with childNodes
@@ -50,6 +53,14 @@ shuffleCards();
 function matchCards(img1, img2) {
     if (img1 === img2) { // this code will run if the card images match
         matchedPairs++; // if the card images match, we can increment the global `matchedPairs` variable by 1 match
+        setTimeout(() => {
+          matchedCard.style.opacity = "1";  
+        }, 400);
+
+        setTimeout(() => {
+          matchedCard.style.opacity = "0";
+          return;
+        }, 1200);
    
         // if the player has matched all cards, game is over and the player has won
         if(matchedPairs == 8){
@@ -67,13 +78,17 @@ function matchCards(img1, img2) {
    setTimeout(() => {
     cardOne.classList.add("shake");
     cardTwo.classList.add("shake");
+    missedMatch.style.opacity = "1";
+  
   }, 400);
+
    
    setTimeout(() => {
     cardOne.classList.remove("shake","flip");
     cardTwo.classList.remove("shake","flip");
     cardOne = cardTwo = ""; // reset the cardOne & cardTwo variables to empty string
     disableDeck = false;
+    missedMatch.style.opacity = "0";
     return;
   }, 1200);
    
