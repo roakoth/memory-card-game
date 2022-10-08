@@ -51,7 +51,10 @@ function matchCards(img1, img2) {
     if (img1 === img2) { // this code will run if the card images match
         matchedPairs++; // if the card images match, we can increment the global `matchedPairs` variable by 1 match
    
-       gameOver();
+        // if the player has matched all cards, game is over and the player has won
+        if(matchedPairs == 8){
+          gameOver(); 
+        }
           // everything below will execute if the game has not yet been won...
           cardOne.removeEventListener("click", flipCard); // remove the eventlistener so that this matched card cannot be flipped anymore
           cardTwo.removeEventListener("click", flipCard); // remove the eventlistener so that this matched card cannot be flipped anymore
@@ -77,15 +80,10 @@ function matchCards(img1, img2) {
 }
 
 function gameOver (){
-  if (matchedPairs == 8) { // if your number of matches is 8, you've made all the matches! Game Won!
-    console.log('YOU WIN!');
 gameOverScreen.style.opacity = "1";
-    return; // for now, lets call this game over, end this function and do nothing else.
-  } 
-  else {
     // restart the game
     playAgainButton.addEventListener("click", restartGame);
-  }
+  
 }
 
 
