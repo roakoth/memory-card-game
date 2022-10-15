@@ -8,7 +8,7 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
-
+    <h1><img src="images/memory-card-image.png" id="header-image" alt="Memory Card Game"></h1>
     <div class="game-board">
         <ul class="cards">
             <li class="card">
@@ -141,5 +141,28 @@
               </li>
         </ul>
       </div>
+
+      <div>
+        <p id="matched">Cards matched!</p>
+        <p id="missed"> Cards did not match! </p>
+      </div>
+
+
+      <!--	Game over message	-->
+		<div id="game-over-wrapper">
+			<div id="game-over">
+				<div>
+					<h1>The Game is over !</h1>
+				</div>
+				<div>
+					<h2>You won!</h2>
+				</div>
+				<div id="play-again-button-container">
+					<button id="play-again-button" type="button">Play Again</button>
+				</div>
+			</div>
+		</div>
+		
+		</div>
   </body>
 </html>
