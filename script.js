@@ -8,27 +8,22 @@ const missedMatch = document.getElementById('missed');
 const matchedCard = document.getElementById('matched');
 
 
-function flipCard(evt) {
-    // console.log('flipCard was executed');
-    // console.log(evt);
-    const clickedCard = evt.target;
-    if (cardOne !== clickedCard && !disableDeck) { // make sure that the current variable cardOne is not the same value as the clickedCard, AND that the deck is NOT disabled
-        clickedCard.classList.add("flip"); // add the 'flip' class to the classes currently assigned to the clickedCard
-    }
-    if(!cardOne) { // if there is not yet a value assigned to the cardOne variable...
-        return cardOne = clickedCard; // set the cardOne value as the clickedCard and end this function.
-    }
-    // everything below will execute if the condition above was not met (if cardOne already had a value when flipCard() was called)
-cardTwo = clickedCard; // set the cardTwo value as the clickedCard
-disableDeck = true; // set this to true for the next time this flipCard function is called, when the top level condition is evaluated
-
-
-// if the function has come this far, it means we have set values for both cardOne and cardTwo.
-// each of the cardOne and cardTwo variables currently represent a whole HTML element with childNodes
-let cardOneImg = cardOne.querySelector(".back-view img").src; // query the elements inside cardOne to get the value of the img src, such as `images/img-2.png`, and set that as the value of cardOneImg
-let cardTwoImg = cardTwo.querySelector(".back-view img").src; // query the elements inside cardTwo to get the value of the img src, such as `images/img-2.png`, and set that as the value of cardTwoImg
-matchCards(cardOneImg, cardTwoImg); // now check the images by filename to see if they are a match!
-
+function flipCard(evt) { // take an event object's as a scoped variable
+  const clickedCard = evt.target; // set the event's target DOM element as a variable
+  if (cardOne !== clickedCard && !disableDeck) { // make sure that the current variable cardOne is not the same value as the clickedCard, AND that the deck is NOT disabled
+      clickedCard.classList.add("flip"); // add the 'flip' class to the classes currently assigned to the clickedCard
+      if(!cardOne) { // if there is not yet a value assigned to the cardOne variable...
+          return cardOne = clickedCard; // set the cardOne value as the clickedCard and end this function.
+      }
+      // everything below will execute if the condition above was not met (if cardOne already had a value when flipCard() was called)
+      cardTwo = clickedCard; // set the cardTwo value as the clickedCard
+      disableDeck = true; // set this to true for the next time this flipCard function is called, when the top level condition is evaluated
+      // if the function has come this far, it means we have set values for both cardOne and cardTwo.
+      // each of the cardOne and cardTwo variables currently represent a whole HTML element with childNodes
+      let cardOneImg = cardOne.querySelector(".back-view img").src; // query the elements inside cardOne to get the value of the img src, such as `img-2.png`, and set that as the value of cardOneImg
+      let cardTwoImg = cardTwo.querySelector(".back-view img").src; // query the elements inside cardOne to get the value of the img src, such as `img-2.png`, and set that as the value of cardTwoImg
+      matchCards(cardOneImg, cardTwoImg); // now check the images by filename to see if they are a match!
+  }
 }
 
   function shuffleCards() {
